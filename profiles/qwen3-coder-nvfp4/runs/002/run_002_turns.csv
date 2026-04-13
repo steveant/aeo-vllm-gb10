@@ -1,0 +1,5 @@
+ts,phase,session_id,turn_index,status,prompt_tokens,completion_tokens,total_tokens,wall_latency_s,mem_used_mib_before,mem_used_mib_after,swap_mib_before,swap_mib_after,kv_pct_before,kv_pct_after
+2026-04-12T21:33:02.643+00:00,A,0,0,ok,102,1500,1602,57.913,77047,67439,10048,9479,0.0,2.5
+2026-04-12T21:33:02.659+00:00,A,2,0,ok,70,1500,1570,57.928,77047,67439,10048,9479,0.0,2.5
+2026-04-12T21:33:02.659+00:00,A,1,0,ok,69,1500,1569,57.928,77047,67439,10048,9479,0.0,2.5
+2026-04-12T21:33:02.660+00:00,A,3,0,ok,75,1500,1575,57.928,77047,67439,10048,9479,0.0,2.5

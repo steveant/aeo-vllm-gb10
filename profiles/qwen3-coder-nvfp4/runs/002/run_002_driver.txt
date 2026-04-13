@@ -1,0 +1,34 @@
+== Run 002 driver ==
+selected phases: ['A', 'B', 'C']
+dry-run: False
+baseline: used=75.06GiB avail=46.57GiB swap=9.83GiB
+kill thresholds: used>78.0GiB, swap>11.33GiB, kv>95.0%
+waiting for vLLM health (timeout 900s)...
+health OK
+model id: saricles/Qwen3-Coder-Next-NVFP4-GB10
+latest log scrape: {'prompt_tps': 0.0, 'gen_tps': 0.0, 'running': 0, 'waiting': 0, 'kv_pct': 0.0, 'prefix_hit_pct': 0.0}
+[mon 2026-04-12T21:32:02.230+00:00] used= 75.2GiB avail= 46.4GiB swap= 9.81GiB kv=  0.0% run=0
+== Phase A: 4 sessions x 4 turns x 1500 max_tokens ==
+!! KILL SWITCH TRIPPED: used 79.7GiB > 78.0
+[mon 2026-04-12T21:32:33.316+00:00] used= 78.9GiB avail= 42.7GiB swap= 9.62GiB kv=  2.0% run=4
+== Phase A done ==
+!! kill switch tripped, skipping remaining phases
+
+============================================================
+RUN 002 4x48K SUMMARY
+============================================================
+baseline used: 75.06 GiB  baseline swap: 9.83 GiB
+peak used: 80.79 GiB  peak swap: 10.00 GiB  peak kv: 2.5%
+turn count: 4
+
+[FAIL] #1 completion: 4/120 ok, 0 errors
+[FAIL] #2 peak used:    80.79 GiB (< 78.0 GiB)
+[PASS] #3 swap growth:  +0.17 GiB (< 1.5 GiB)
+[FAIL] #4 latency drift (p95 last < 2x p95 first)
+  A: insufficient data
+  B: insufficient data
+  C: insufficient data
+[PASS] #5 kv peak:      2.5% (< 95.0%)
+[FAIL] #6 peak vs proj: observed 80.79 GiB vs proj 70.91 GiB (delta +9.88, |delta| <= 3.0)
+
+RUN 002 4x48K: KILLED (used 79.7GiB > 78.0)

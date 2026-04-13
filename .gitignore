@@ -1,0 +1,29 @@
+# Environment
+.env
+.venv/
+
+# Build artifacts
+dist/
+build/
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Models (keep directory, ignore contents)
+models/*
+!models/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+
+# Linting / Testing caches
+.ruff_cache/
+.pytest_cache/
+
+# Excel temp files
+*.xlsx~
+~$*

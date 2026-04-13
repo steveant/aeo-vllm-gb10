@@ -1,0 +1,66 @@
+== Run 002b driver ==
+detected pool: 9.72 GiB
+projected peak_steady = 70.72 GiB, spike threshold = 73.72 GiB
+baseline: used=67.24GiB avail=54.39GiB swap=6.50GiB
+kill thresholds: used>88.0GiB, swap>8.00GiB, kv>95.0%
+waiting for vLLM health (timeout 900s)...
+health OK
+model id: saricles/Qwen3-Coder-Next-NVFP4-GB10
+-- cold idle: 60s --
+[mon 2026-04-12T22:21:28.755+00:00] used= 67.2GiB avail= 54.4GiB swap= 6.50GiB kv=  --  run=-
+[mon 2026-04-12T22:21:39.020+00:00] used= 67.2GiB avail= 54.4GiB swap= 6.50GiB kv=  --  run=-
+[mon 2026-04-12T22:21:49.274+00:00] used= 67.3GiB avail= 54.4GiB swap= 6.50GiB kv=  --  run=-
+[mon 2026-04-12T22:21:59.527+00:00] used= 67.2GiB avail= 54.4GiB swap= 6.50GiB kv=  --  run=-
+[mon 2026-04-12T22:22:09.777+00:00] used= 67.2GiB avail= 54.4GiB swap= 6.50GiB kv=  --  run=-
+[mon 2026-04-12T22:22:20.032+00:00] used= 67.2GiB avail= 54.4GiB swap= 6.50GiB kv=  --  run=-
+[mon 2026-04-12T22:22:30.288+00:00] used= 67.4GiB avail= 54.2GiB swap= 6.50GiB kv=  --  run=-
+[mon 2026-04-12T22:22:40.572+00:00] used= 68.0GiB avail= 53.7GiB swap= 6.49GiB kv=  --  run=-
+[mon 2026-04-12T22:22:50.835+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  --  run=-
+[mon 2026-04-12T22:23:01.119+00:00] used= 68.0GiB avail= 53.7GiB swap= 6.49GiB kv=  --  run=-
+[mon 2026-04-12T22:23:11.501+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.5% run=1
+[mon 2026-04-12T22:23:21.904+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.5% run=1
+  req 1 (Rust): status=ok wall= 57.21s ttft= 33.19s peak=68.02GiB tokens=1500
+-- idle gap 1: 30s --
+[mon 2026-04-12T22:23:32.248+00:00] used= 68.0GiB avail= 53.7GiB swap= 6.49GiB kv=  0.6% run=1
+[mon 2026-04-12T22:23:42.521+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:23:52.793+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:24:03.145+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:24:13.553+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.5% run=1
+  req 2 (Postgres): status=ok wall= 23.95s ttft=  0.31s peak=67.93GiB tokens=1500
+-- idle gap 2: 30s --
+[mon 2026-04-12T22:24:23.926+00:00] used= 68.0GiB avail= 53.7GiB swap= 6.49GiB kv=  0.6% run=1
+[mon 2026-04-12T22:24:34.193+00:00] used= 68.0GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:24:44.468+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:24:54.793+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:25:05.200+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.5% run=1
+  req 3 (Linear algebra): status=ok wall= 23.89s ttft=  0.13s peak=67.96GiB tokens=1500
+-- idle gap 3: 30s --
+[mon 2026-04-12T22:25:15.606+00:00] used= 68.0GiB avail= 53.7GiB swap= 6.49GiB kv=  0.5% run=1
+[mon 2026-04-12T22:25:25.870+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:25:36.141+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:25:46.425+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:25:56.832+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.5% run=1
+  req 4 (Distributed systems): status=ok wall= 23.72s ttft=  0.10s peak=67.96GiB tokens=1500
+-- warm tail: 60s --
+[mon 2026-04-12T22:26:07.245+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.6% run=1
+[mon 2026-04-12T22:26:17.538+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:26:27.809+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:26:38.073+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:26:48.371+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+[mon 2026-04-12T22:26:58.672+00:00] used= 67.9GiB avail= 53.7GiB swap= 6.49GiB kv=  0.0% run=0
+
+============================================================
+RUN 002b SEQUENTIAL CHARACTERIZATION SUMMARY
+============================================================
+baseline used: 67.24 GiB  baseline swap: 6.50 GiB
+peak used: 68.02 GiB  peak swap: 6.50 GiB  peak kv: 0.6%
+projected peak_steady: 70.72 GiB  spike threshold: 73.72 GiB
+
+Per-request memory peaks (during the request only):
+ #  topic                  status       wall_s   ttft_s   peak_GiB  delta_vs_steady
+ 1  Rust                   ok            57.21    33.19      68.02            -2.70
+ 2  Postgres               ok            23.95     0.31      67.93            -2.79
+ 3  Linear algebra         ok            23.89     0.13      67.96            -2.76
+ 4  Distributed systems    ok            23.72     0.10      67.96            -2.76
+
+RUN 002b: outcome D - no spike on any request - the Run 002 transient was situational

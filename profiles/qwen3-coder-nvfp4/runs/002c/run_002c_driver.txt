@@ -1,0 +1,205 @@
+== Run 002c driver (ramped multi-turn high-fill) ==
+detected pool: 11.41 GiB
+stale projection: peak_steady = 72.41 GiB (informational only)
+baseline: used=69.45GiB avail=52.18GiB swap=6.85GiB
+kill thresholds: used>88.0GiB, swap>8.35GiB, kv>95.0%
+waiting for vLLM health (timeout 900s)...
+health OK
+model id: saricles/Qwen3-Coder-Next-NVFP4-GB10
+-- S1 waiting for start signal --
+-- S2 waiting for start signal --
+-- S3 waiting for start signal ---- S4 waiting for start signal ---- pre-setting S1 start event (ramp begins) --
+
+
+-- S1 starting (Rust) --
+[mon 2026-04-13T14:04:15.252+00:00] used= 69.5GiB avail= 52.2GiB swap= 6.85GiB kv=  --  run=-
+[mon 2026-04-13T14:04:30.719+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  --  run=-
+[mon 2026-04-13T14:04:46.148+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  --  run=-
+[mon 2026-04-13T14:05:01.171+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  0.4% run=1
+[mon 2026-04-13T14:05:16.221+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  0.5% run=1
+  S1 t01/16: ok         wall= 69.30s ttft=32.94s p=   86 c= 2254 peak=70.77GiB kv_max=  0.5% run_max=1  [S1 joined]
+-- S1 releasing next worker (after turn 1 ok) --
+-- S2 starting (Postgres) --
+[mon 2026-04-13T14:05:31.297+00:00] used= 70.7GiB avail= 51.0GiB swap= 6.89GiB kv=  0.5% run=1
+[mon 2026-04-13T14:05:46.374+00:00] used= 70.7GiB avail= 51.0GiB swap= 6.89GiB kv=  1.1% run=2
+  S1 t02/16: ok         wall= 25.90s ttft= 0.25s p= 2373 c= 1249 peak=70.78GiB kv_max=  1.1% run_max=2
+[mon 2026-04-13T14:06:01.450+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  1.3% run=2
+[mon 2026-04-13T14:06:16.528+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  1.5% run=2
+  S2 t01/16: ok         wall= 51.95s ttft= 0.28s p=   91 c= 2500 peak=70.79GiB kv_max=  1.5% run_max=2  [S2 joined]
+-- S2 releasing next worker (after turn 1 ok) --
+-- S3 starting (Linear algebra) --
+[mon 2026-04-13T14:06:32.162+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  1.9% run=3
+  S1 t03/16: ok         wall= 54.02s ttft= 0.24s p= 3649 c= 2355 peak=70.79GiB kv_max=  2.2% run_max=3
+[mon 2026-04-13T14:06:47.797+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  2.2% run=3
+[mon 2026-04-13T14:07:03.424+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  2.5% run=3
+[mon 2026-04-13T14:07:19.089+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  2.5% run=3
+  S2 t02/16: ok         wall= 68.36s ttft= 0.30s p= 2619 c= 2500 peak=70.76GiB kv_max=  2.6% run_max=3
+  S3 t01/16: ok         wall= 68.36s ttft= 0.30s p=   93 c= 2500 peak=70.76GiB kv_max=  2.6% run_max=3  [S3 joined]
+-- S3 releasing next worker (after turn 1 ok) --
+-- S4 starting (Distributed systems) --
+[mon 2026-04-13T14:07:34.730+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  3.1% run=4
+[mon 2026-04-13T14:07:50.363+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  3.2% run=4
+  S1 t04/16: ok         wall= 72.98s ttft= 0.32s p= 6035 c= 2500 peak=70.78GiB kv_max=  3.3% run_max=4
+[mon 2026-04-13T14:08:06.014+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  3.6% run=4
+  S4 t01/16: ok         wall= 53.51s ttft= 0.53s p=   85 c= 1804 peak=70.78GiB kv_max=  3.7% run_max=4  [S4 joined]
+[mon 2026-04-13T14:08:21.673+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  3.7% run=4
+[mon 2026-04-13T14:08:37.322+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  4.0% run=4
+  S2 t03/16: ok         wall= 74.24s ttft= 0.53s p= 5151 c= 2500 peak=70.78GiB kv_max=  4.0% run_max=4
+  S3 t02/16: ok         wall= 74.24s ttft= 0.53s p= 2625 c= 2500 peak=70.78GiB kv_max=  4.0% run_max=4
+[mon 2026-04-13T14:08:52.969+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  4.2% run=4
+[mon 2026-04-13T14:09:08.616+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  4.3% run=4
+  S1 t05/16: ok         wall= 74.96s ttft= 0.47s p= 8563 c= 2500 peak=70.79GiB kv_max=  4.3% run_max=4
+[mon 2026-04-13T14:09:24.281+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  4.6% run=4
+  S4 t02/16: ok         wall= 74.82s ttft= 0.33s p= 1916 c= 2500 peak=70.79GiB kv_max=  4.6% run_max=4
+[mon 2026-04-13T14:09:39.921+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  4.7% run=4
+  S3 t03/16: ok         wall= 74.96s ttft= 1.11s p= 5153 c= 2500 peak=70.79GiB kv_max=  5.1% run_max=4
+  S2 t04/16: ok         wall= 74.99s ttft= 1.19s p= 7677 c= 2500 peak=70.79GiB kv_max=  5.1% run_max=4
+[mon 2026-04-13T14:09:55.571+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  5.1% run=4
+[mon 2026-04-13T14:10:11.266+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  5.2% run=4
+[mon 2026-04-13T14:10:26.947+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  5.5% run=4
+  S1 t06/16: ok         wall= 74.67s ttft= 0.31s p=11095 c= 2500 peak=70.78GiB kv_max=  5.5% run_max=4
+[mon 2026-04-13T14:10:42.608+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  5.7% run=4
+  S4 t03/16: ok         wall= 74.99s ttft= 0.19s p= 4448 c= 2500 peak=70.78GiB kv_max=  5.7% run_max=4
+[mon 2026-04-13T14:10:58.270+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  5.8% run=4
+  S3 t04/16: ok         wall= 71.57s ttft= 0.38s p= 7685 c= 2381 peak=70.76GiB kv_max=  5.9% run_max=4
+  S2 t05/16: ok         wall= 75.89s ttft= 0.46s p=10209 c= 2500 peak=70.76GiB kv_max=  5.9% run_max=4
+[mon 2026-04-13T14:11:13.968+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  6.1% run=4
+[mon 2026-04-13T14:11:29.627+00:00] used= 70.7GiB avail= 50.9GiB swap= 6.89GiB kv=  6.2% run=4
+  S1 t07/16: ok         wall= 70.50s ttft= 0.42s p=13628 c= 2304 peak=70.76GiB kv_max=  6.4% run_max=4
+[mon 2026-04-13T14:11:45.272+00:00] used= 70.8GiB avail= 50.9GiB swap= 6.89GiB kv=  6.5% run=4
+  S3 t05/16: ok         wall= 52.36s ttft= 0.94s p=10098 c= 1684 peak=70.76GiB kv_max=  6.7% run_max=4
+[mon 2026-04-13T14:12:00.946+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  6.7% run=4
+  S4 t04/16: ok         wall= 79.00s ttft= 0.32s p= 6981 c= 2327 peak=70.84GiB kv_max=  7.0% run_max=4
+[mon 2026-04-13T14:12:16.559+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  6.8% run=4
+[mon 2026-04-13T14:12:32.259+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  6.9% run=4
+  S2 t06/16: ok         wall= 85.02s ttft= 0.46s p=12742 c= 2500 peak=70.84GiB kv_max=  7.1% run_max=4
+[mon 2026-04-13T14:12:47.924+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  7.2% run=4
+[mon 2026-04-13T14:13:03.577+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  7.5% run=4
+  S1 t08/16: ok         wall= 85.63s ttft= 0.50s p=15965 c= 2500 peak=70.84GiB kv_max=  7.5% run_max=4
+[mon 2026-04-13T14:13:19.226+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  7.5% run=4
+  S3 t06/16: ok         wall= 85.92s ttft= 7.40s p=11815 c= 2500 peak=70.84GiB kv_max=  7.7% run_max=4
+  S4 t05/16: ok         wall= 78.29s ttft= 1.00s p= 9340 c= 2481 peak=70.84GiB kv_max=  7.7% run_max=4
+[mon 2026-04-13T14:13:34.861+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  7.9% run=4
+[mon 2026-04-13T14:13:50.503+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  8.0% run=4
+  S2 t07/16: ok         wall= 75.67s ttft= 0.28s p=15276 c= 2413 peak=70.81GiB kv_max=  8.0% run_max=4
+[mon 2026-04-13T14:14:06.263+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.89GiB kv=  8.2% run=4
+  S1 t09/16: ok         wall= 70.92s ttft= 0.32s p=18496 c= 2229 peak=70.81GiB kv_max=  8.4% run_max=4
+[mon 2026-04-13T14:14:21.916+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.88GiB kv=  8.4% run=4
+  S3 t07/16: ok         wall= 66.96s ttft= 0.34s p=14346 c= 2091 peak=70.82GiB kv_max=  8.5% run_max=4
+[mon 2026-04-13T14:14:37.549+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  8.5% run=4
+  S4 t06/16: ok         wall= 80.04s ttft= 0.19s p=11851 c= 2500 peak=70.82GiB kv_max=  8.7% run_max=4
+[mon 2026-04-13T14:14:53.195+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  8.8% run=4
+[mon 2026-04-13T14:15:08.837+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  8.9% run=4
+  S2 t08/16: ok         wall= 80.90s ttft= 0.80s p=17718 c= 2500 peak=70.84GiB kv_max=  8.9% run_max=4
+[mon 2026-04-13T14:15:24.539+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  9.3% run=4
+  S1 t10/16: ok         wall= 81.08s ttft= 0.36s p=20757 c= 2500 peak=70.84GiB kv_max=  9.4% run_max=4
+[mon 2026-04-13T14:15:40.204+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  9.4% run=4
+  S3 t08/16: ok         wall= 81.41s ttft= 0.33s p=16469 c= 2500 peak=70.84GiB kv_max=  9.7% run_max=4
+[mon 2026-04-13T14:15:55.927+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  9.7% run=4
+  S4 t07/16: ok         wall= 81.70s ttft= 0.36s p=14384 c= 2500 peak=70.85GiB kv_max=  9.7% run_max=4
+[mon 2026-04-13T14:16:11.593+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  9.7% run=4
+[mon 2026-04-13T14:16:27.282+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv= 10.0% run=4
+  S2 t09/16: ok         wall= 82.41s ttft= 0.53s p=20251 c= 2500 peak=70.85GiB kv_max= 10.1% run_max=4
+  S1 t11/16: ok         wall= 66.55s ttft= 0.50s p=23290 c= 2013 peak=70.85GiB kv_max= 10.1% run_max=4
+[mon 2026-04-13T14:16:42.939+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv= 10.2% run=4
+  S3 t09/16: ok         wall= 53.58s ttft= 0.48s p=19002 c= 1613 peak=70.85GiB kv_max= 10.2% run_max=4
+[mon 2026-04-13T14:16:58.586+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv= 10.2% run=4
+[mon 2026-04-13T14:17:14.247+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv= 10.6% run=4
+  S4 t08/16: ok         wall= 75.61s ttft= 0.89s p=16917 c= 2283 peak=70.84GiB kv_max= 10.6% run_max=4
+[mon 2026-04-13T14:17:29.893+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv= 10.7% run=4
+  S2 t10/16: ok         wall= 67.34s ttft= 0.35s p=22784 c= 2032 peak=70.83GiB kv_max= 10.9% run_max=4
+[mon 2026-04-13T14:17:45.571+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv=  8.1% run=3
+  S1 t12/16: ok         wall= 68.56s ttft= 0.49s p=25332 c= 2070 peak=70.84GiB kv_max= 10.9% run_max=4
+  S3 t10/16: ok         wall= 70.07s ttft= 1.03s p=20643 c= 2093 peak=70.85GiB kv_max= 11.4% run_max=4
+[mon 2026-04-13T14:18:01.259+00:00] used= 70.8GiB avail= 50.8GiB swap= 6.87GiB kv= 11.4% run=4
+[mon 2026-04-13T14:18:16.959+00:00] used= 70.9GiB avail= 50.8GiB swap= 6.87GiB kv= 11.4% run=4
+[mon 2026-04-13T14:18:32.618+00:00] used= 70.9GiB avail= 50.8GiB swap= 6.87GiB kv= 11.5% run=4
+  S4 t09/16: ok         wall= 80.92s ttft= 0.52s p=19229 c= 2406 peak=70.86GiB kv_max= 11.6% run_max=4
+[mon 2026-04-13T14:18:48.278+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 11.6% run=4
+[mon 2026-04-13T14:19:03.975+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 12.0% run=4
+  S2 t11/16: ok         wall= 85.25s ttft= 0.29s p=24845 c= 2500 peak=70.86GiB kv_max= 12.0% run_max=4
+  S1 t13/16: ok         wall= 85.78s ttft= 1.20s p=27432 c= 2500 peak=70.86GiB kv_max= 12.0% run_max=4
+[mon 2026-04-13T14:19:19.630+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 12.0% run=4
+  S3 t11/16: ok         wall= 85.37s ttft= 0.31s p=22766 c= 2500 peak=70.86GiB kv_max= 12.0% run_max=4
+[mon 2026-04-13T14:19:35.323+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv= 12.3% run=4
+[mon 2026-04-13T14:19:50.988+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv= 12.4% run=4
+[mon 2026-04-13T14:20:06.665+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 12.7% run=4
+  S4 t10/16: ok         wall= 85.79s ttft= 1.36s p=21665 c= 2500 peak=70.10GiB kv_max= 12.7% run_max=4
+[mon 2026-04-13T14:20:22.331+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 12.7% run=4
+  S2 t12/16: ok         wall= 85.08s ttft= 0.42s p=27376 c= 2500 peak=70.10GiB kv_max= 12.8% run_max=4
+[mon 2026-04-13T14:20:37.995+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 13.0% run=4
+  S1 t14/16: ok         wall= 85.29s ttft= 0.66s p=29963 c= 2500 peak=70.10GiB kv_max= 13.0% run_max=4
+  S3 t12/16: ok         wall= 84.98s ttft= 0.47s p=25297 c= 2500 peak=70.10GiB kv_max= 13.0% run_max=4
+  S1 t15/16: ok         wall=  7.33s ttft= 0.40s p=32489 c=  195 peak=70.08GiB kv_max=  9.5% run_max=3
+[mon 2026-04-13T14:20:53.662+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 13.3% run=4
+  S3 t13/16: ok         wall=  7.55s ttft= 0.60s p=27823 c=  199 peak=70.08GiB kv_max= 13.3% run_max=4
+[mon 2026-04-13T14:21:09.354+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 13.3% run=4
+  S1 t16/16: ok         wall= 26.32s ttft= 0.48s p=32717 c=  753 peak=70.09GiB kv_max= 13.5% run_max=4
+  S3 t14/16: ok         wall= 23.27s ttft= 0.32s p=28055 c=  674 peak=70.09GiB kv_max= 13.5% run_max=4
+[mon 2026-04-13T14:21:25.013+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv=  9.8% run=3
+  S4 t11/16: ok         wall= 86.05s ttft= 0.46s p=24196 c= 2500 peak=70.09GiB kv_max= 13.5% run_max=4
+[mon 2026-04-13T14:21:40.683+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv=  9.9% run=3
+  S4 t12/16: ok         wall=  7.96s ttft= 0.56s p=26722 c=  228 peak=70.08GiB kv_max= 10.0% run_max=3
+  S3 t15/16: ok         wall= 30.54s ttft= 0.55s p=28762 c=  908 peak=70.09GiB kv_max= 13.5% run_max=4
+[mon 2026-04-13T14:21:56.382+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv= 10.1% run=3
+  S2 t13/16: ok         wall= 85.70s ttft= 0.59s p=29907 c= 2500 peak=70.09GiB kv_max= 13.5% run_max=4
+  S2 t14/16: ok         wall=  6.89s ttft= 0.35s p=32433 c=  202 peak=70.09GiB kv_max= 10.2% run_max=3
+[mon 2026-04-13T14:22:12.091+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 10.2% run=3
+  S4 t13/16: ok         wall= 31.04s ttft= 0.27s p=26983 c=  925 peak=70.09GiB kv_max= 10.2% run_max=3
+[mon 2026-04-13T14:22:27.807+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv= 10.3% run=3
+  S2 t15/16: ok         wall= 25.45s ttft= 0.44s p=32668 c=  767 peak=70.08GiB kv_max= 10.3% run_max=3
+  S3 t16/16: ok         wall= 42.68s ttft= 0.48s p=29697 c= 1279 peak=70.09GiB kv_max= 10.3% run_max=3
+[mon 2026-04-13T14:22:43.430+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv=  7.0% run=2
+  S4 t14/16: ok         wall= 29.56s ttft= 0.24s p=27941 c= 1050 peak=70.09GiB kv_max= 10.3% run_max=3
+[mon 2026-04-13T14:22:59.055+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv=  7.2% run=2
+  S2 t16/16: ok         wall= 32.67s ttft= 0.34s p=33468 c= 1351 peak=70.10GiB kv_max= 10.3% run_max=3
+[mon 2026-04-13T14:23:14.670+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv=  3.4% run=1
+  S4 t15/16: ok         wall= 33.46s ttft= 0.24s p=29018 c= 1613 peak=70.10GiB kv_max=  7.2% run_max=2
+[mon 2026-04-13T14:23:30.305+00:00] used= 70.1GiB avail= 51.6GiB swap= 6.87GiB kv=  3.4% run=1
+[mon 2026-04-13T14:23:45.916+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv=  3.6% run=1
+[mon 2026-04-13T14:24:01.546+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv=  3.7% run=1
+  S4 t16/16: ok         wall= 45.04s ttft= 0.38s p=30662 c= 2500 peak=70.13GiB kv_max=  3.7% run_max=1
+-- warm tail 30s --
+[mon 2026-04-13T14:24:16.994+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv=  0.0% run=0
+[mon 2026-04-13T14:24:32.403+00:00] used= 70.1GiB avail= 51.5GiB swap= 6.87GiB kv=  0.0% run=0
+
+========================================================================
+RUN 002c RAMPED MULTI-TURN HIGH-FILL SUMMARY
+========================================================================
+baseline used: 69.45 GiB  baseline swap: 6.85 GiB  pool: 11.41 GiB
+peak used: 70.86 GiB  peak swap: 6.89 GiB  peak kv: 13.5%
+
+Per-session:
+  #  topic                    done    ttft1   ttftN    wall1   wallN   p95_f4  p95_l4   prmptN    kvmax
+S 1  Rust                   16/16    32.94    0.48    69.30   26.32    72.43   85.71    32717    13.5%
+S 2  Postgres               16/16     0.28    0.34    51.95   32.67    74.88   77.75    33468    13.5%
+S 3  Linear algebra         16/16     0.30    0.48    68.36   42.68    74.85   40.86    29697    13.5%
+S 4  Distributed systems    16/16     0.53    0.38    53.51   45.04    78.40   43.30    30662    13.5%
+
+Ramp transitions (peak in 60s window after running->running+1):
+  1->2: peak=70.79GiB  kv_max=  1.9%  samples=80
+  2->3: peak=70.76GiB  kv_max=  2.5%  samples=82
+  3->4: peak=70.78GiB  kv_max=  4.0%  samples=80
+
+Per-concurrency-level steady-state stats (from memtrail):
+   running   samples    max_used   mean_used    max_kv
+         0        29     70.15GiB     70.12GiB      0.0%
+         1       134     70.72GiB     70.33GiB      3.7%
+         2       122     70.79GiB     70.43GiB      7.2%
+         3       228     70.85GiB     70.40GiB     10.3%
+         4      1072     70.86GiB     70.66GiB     13.5%
+
+Criteria:
+[PASS] #1 completion: 64/64 ok, 0 errors
+[PASS] #2 peak used:    70.86 GiB (< 88.0 GiB)
+[PASS] #3 swap growth:  +0.04 GiB (< 1.5 GiB)
+[PASS] #4 latency drift (per-session p95 last4 < 2x first4)
+  S1: p95_first4= 72.43s  p95_last4= 85.71s  ratio= 1.18  ok
+  S2: p95_first4= 74.88s  p95_last4= 77.75s  ratio= 1.04  ok
+  S3: p95_first4= 74.85s  p95_last4= 40.86s  ratio= 0.55  ok
+  S4: p95_first4= 78.40s  p95_last4= 43.30s  ratio= 0.55  ok
+[PASS] #5 kv peak:      13.5% (< 95.0%)
+[INFO] #6 peak vs proj: observed 70.86 GiB vs stale proj 72.41 GiB (delta -1.55 GiB) - INFORMATIONAL ONLY, coefficient revision input
+         implied peak_steady const = 59.45 (Run 001: 61.0, Run 002b: 58.3)
+
+RUN 002c 4x48K RAMPED: PASS

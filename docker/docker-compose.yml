@@ -1,0 +1,47 @@
+services:
+  vllm:
+    image: ${VLLM_IMAGE}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - HUGGING_FACE_HUB_TOKEN=${HF_TOKEN}
+      - HF_HOME=/host/dev/models/cache/huggingface
+      - VLLM_NVFP4_GEMM_BACKEND=${VLLM_NVFP4_GEMM_BACKEND:-}
+      - VLLM_TEST_FORCE_FP8_MARLIN=${VLLM_TEST_FORCE_FP8_MARLIN:-}
+      - VLLM_USE_FLASHINFER_MOE_FP4=${VLLM_USE_FLASHINFER_MOE_FP4:-}
+      - VLLM_MARLIN_USE_ATOMIC_ADD=${VLLM_MARLIN_USE_ATOMIC_ADD:-}
+    ports:
+      - "${VLLM_PORT}:8000"
+    volumes:
+      - ${VLLM_HOST_DEV}:/host/dev
+      - ${VLLM_HOST_BIN}:/host/usr/local/bin
+      - ${VLLM_HOST_HOME}:/host/home
+    working_dir: /host
+    ipc: host
+    shm_size: 32g
+    # Override any image-provided entrypoint (avarok wraps /app/entrypoint.sh).
+    # Both NGC and avarok expose `vllm` in the default PATH
+    # (NGC: /usr/local/bin/vllm, avarok: /opt/venv/bin/vllm).
+    entrypoint: vllm
+    command: >
+      serve ${VLLM_MODEL}
+      --host 0.0.0.0
+      --port 8000
+      --max-model-len ${VLLM_MAX_MODEL_LEN}
+      --gpu-memory-utilization ${VLLM_GPU_MEMORY_UTILIZATION}
+      --tensor-parallel-size ${VLLM_TENSOR_PARALLEL_SIZE}
+      ${VLLM_ENFORCE_EAGER_FLAG:-}
+      ${VLLM_QUANTIZATION_FLAG:-}
+      ${VLLM_EXTRA_ARGS:-}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 600s
