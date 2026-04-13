@@ -8,12 +8,12 @@ Working document. Captures the memory model, the config matrix, and a calibratio
 
 | Field | Value |
 |---|---|
-| Machine | sfspark1 (NVIDIA GB10, Grace Blackwell ARM64) |
+| Machine | NVIDIA GB10 (Grace Blackwell ARM64) |
 | Total memory | 128 GiB nominal LPDDR5x (unified, no separate VRAM) |
 | Usable memory (`free -h`) | ~121 GiB — kernel/firmware reserve the delta |
 | CUDA / driver | 13.0 / 580.126.09 |
 | Compute capability | SM 12.1 |
-| Ambient non-vLLM processes | ~8.5 GiB (OS + GNOME + **STT service PID 1076583 holding 3.5 GiB — do not touch**) |
+| Ambient non-vLLM processes | ~8.5 GiB (OS + desktop environment + other GPU-resident processes) |
 | Pre-existing swap usage | ~5.7 GiB (not caused by us) |
 | **Hard cap on projected peak** | **80 GiB** (raised from 70 GiB mid-Run-001 on 2026-04-12 — see calibration log) |
 
@@ -54,7 +54,7 @@ Measured / estimated constants:
 | Python/framework overhead | ~2 GiB | gap between weights-in-CUDA and container RSS |
 | Activations/workspace (MoE + Flashinfer + 8K prefill buffer) | ~4 GiB | estimated, **not yet empirically pinned** |
 | Fixed vLLM overhead | **~49 GiB** | 43 + 2 + 4 |
-| Ambient non-vLLM | 8.5 GiB | measured on sfspark1 |
+| Ambient non-vLLM | 8.5 GiB | measured on host |
 | **Baseline before KV** | **~57.5 GiB** | fixed + ambient |
 
 **KV cache rate:** `48 KiB/token` with `--kv-cache-dtype fp8`. Derived from the HF README's reported `61.7 GiB / 1,346,432 tokens = 49,203 bytes/token ≈ 48 KiB`. This number already amortizes the DeltaNet Mamba recurrent state and vLLM's block rounding.
@@ -447,7 +447,7 @@ Initial run was KILLED (S1 turn 7 HTTP 400 — context overflow at ~42 K prompt 
 4. **Swap interaction** — the host already has ~5.7 GiB of pre-existing baseline swap. Run 002 saw the driver-start swap baseline at 9.83 GiB (3.6 GiB above the dry-run baseline 50 s earlier — unclear what allocated). Peak swap during the run was +0.17 GiB above baseline, so the kill switch's swap criterion was never triggered. But the *baseline shifting* between runs is itself a flag.
 5. **`--enforce-eager=true`** is currently set; disabling for throughput is a separate experiment. Don't conflate with resource planning.
 6. **(REFINED by Run 002c) Concurrency-bound memory transient — NOT reproducible under current conditions.** Run 002b ruled out the cold-engine/JIT-compile hypothesis. Run 002c was specifically designed to re-provoke the Run 002 spike via a ramped 1→2→3→4 concurrency transition under the same config. **The spike did not reproduce.** Peak memory during each ramp transition was 70.76–70.79 GiB (within 0.04 GiB of each other and only ~0.4 GiB above the solo-serving floor). The "+5–7 GiB first-concurrent-batch tax" is therefore **not** a universal property of this config; Run 002's 80.79 GiB spike was either situational to that specific cold-start state (pool 9.91 GiB, different startup allocation ordering) or required an allocation codepath that Run 002c's engine instance did not traverse. **Open question downgraded**: the spike is now a known unknown with one observation and three non-observations, rather than a binding constraint on the config matrix. Until we can provoke it again deliberately, treat the +7 GiB caveat as an *upper-bound* excursion risk rather than an expected operating point.
-7. **(NEW, opened by Run 002; sixth data point from Run 002d retry)** vLLM `Available KV cache memory` is **not deterministic across cold starts** of the same image with the same `.env`. Run 001 → 8.93 GiB, Run 002 → 9.91 GiB, Run 002b → 9.72 GiB, Run 002c → 11.41 GiB, Run 002d (killed) → 12.17 GiB, **Run 002d (retry) → 9.18 GiB**. Span is **3.24 GiB across 6 cold starts**. The pool swung from 12.17 back to 9.18 on consecutive runs, confirming the variance is non-monotonic and not a persistent upward drift. Leading hypothesis: GPU-resident state at startup (including the STT service's 3.5 GiB and kernel memory fragmentation) controls the util-budget split.
+7. **(NEW, opened by Run 002; sixth data point from Run 002d retry)** vLLM `Available KV cache memory` is **not deterministic across cold starts** of the same image with the same `.env`. Run 001 → 8.93 GiB, Run 002 → 9.91 GiB, Run 002b → 9.72 GiB, Run 002c → 11.41 GiB, Run 002d (killed) → 12.17 GiB, **Run 002d (retry) → 9.18 GiB**. Span is **3.24 GiB across 6 cold starts**. The pool swung from 12.17 back to 9.18 on consecutive runs, confirming the variance is non-monotonic and not a persistent upward drift. Leading hypothesis: GPU-resident state at startup (including ambient GPU-resident workloads and kernel memory fragmentation) controls the util-budget split.
 8. **(NEW, opened by Run 002b; fifth data point from Run 002d retry)** The `peak_steady` coefficient varies across runs. Five data points:
 
    | Run | pool (GiB) | peak_steady (GiB) | implied const |
@@ -526,10 +526,10 @@ uv run bootstrap-vllm logs --tail 400 | grep -E 'NvFp4|FLASHINFER|MARLIN|fp8|att
 
 - `/tmp/vllm-nvfp4-continuation.md` — pre-Run-001 session handoff with original constant derivations
 - `/tmp/vllm-run-002-continuation.md` — Run 002 session handoff (corrected coefficients, the four open questions, the locked-in decisions)
-- `/home/steve/.claude/plans/zesty-giggling-crystal.md` — Run 001 plan (4 × 48K calibration)
-- `/home/steve/.claude/plans/twinkly-giggling-eagle.md` — Run 002 plan (load test against 4 × 48K)
-- `/home/steve/.claude/plans/greedy-crafting-mochi.md` — Run 002c plan (ramped multi-turn high-fill characterization; originally Run 002b plan, repurposed in-session after 002b completed)
-- `/home/steve/.claude/plans/woolly-dreaming-wave.md` — original NVFP4 harness code-change plan
+- `zesty-giggling-crystal.md` — Run 001 plan (4 × 48K calibration)
+- `twinkly-giggling-eagle.md` — Run 002 plan (load test against 4 × 48K)
+- `greedy-crafting-mochi.md` — Run 002c plan (ramped multi-turn high-fill characterization; originally Run 002b plan, repurposed in-session after 002b completed)
+- `woolly-dreaming-wave.md` — original NVFP4 harness code-change plan
 - `vLLM/scripts/run_002_load_test.py` — Run 002 driver (committed `630ec8a`)
 - `vLLM/scripts/run_002b_sequential.py` — Run 002b driver (committed `630ec8a`)
 - `vLLM/scripts/run_002c_ramped.py` — Run 002c driver
@@ -539,5 +539,5 @@ uv run bootstrap-vllm logs --tail 400 | grep -E 'NvFp4|FLASHINFER|MARLIN|fp8|att
 - `vLLM/scripts/run_002d_enriched.py` — Run 002d driver
 - `vLLM/scripts/run_002d_prompts/` — Run 002d per-session content modules (4 files)
 - `vLLM/runs/run_002d/` — Run 002d artifacts (driver log, per-turn CSV, memtrail CSV, transcript)
-- `/home/steve/.claude/plans/kind-questing-bear.md` — Run 002d plan (enriched multi-turn characterization)
+- `kind-questing-bear.md` — Run 002d plan (enriched multi-turn characterization)
 - HF model card: https://huggingface.co/saricles/Qwen3-Coder-Next-NVFP4-GB10

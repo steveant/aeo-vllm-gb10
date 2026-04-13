@@ -1136,7 +1136,7 @@ FOLLOW_UPS: list[str] = [
         "deployments without breaking anything? Cover rollback, canary strategy, "
         "and the exact git workflow. Reference the specific function names from "
         "your refactor.\n\n"
-        "The deployment topology is: one GB10 production host (`sfspark1`), two "
+        "The deployment topology is: one GB10 production host, two "
         "developer workstations that run the same `bootstrap-vllm` CLI against "
         "their own local docker, and a CI job that invokes `bootstrap-vllm model "
         "switch` inside a smoke test. We ship as a uv-installed package pinned "

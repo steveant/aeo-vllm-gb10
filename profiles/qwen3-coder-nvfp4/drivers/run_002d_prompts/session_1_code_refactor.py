@@ -870,7 +870,7 @@ FOLLOW_UPS: list[str] = [
         "deployments without breaking anything? Cover rollback, canary strategy, "
         "and the exact git workflow. Reference the specific function names from "
         "your refactor.\n\n"
-        "The deployment topology is: one GB10 production host (`sfspark1`) that "
+        "The deployment topology is: one GB10 production host that "
         "runs the mesh CLI for Samba server management, and two developer "
         "workstations that run `mesh smb setup-client` to map drives. We ship "
         "as a uv-installed package pinned to a git SHA in the consuming repo's "

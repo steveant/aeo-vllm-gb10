@@ -1,7 +1,7 @@
 # Retrospective: Run 002 Series — 4×48K Multi-Turn Characterization
 
 **Date:** 2026-04-13
-**Host:** sfspark1 (NVIDIA GB10, Grace Blackwell ARM64, 128 GiB unified memory)
+**Host:** NVIDIA GB10 (Grace Blackwell ARM64, 128 GiB unified memory)
 **Model:** Qwen3-Coder-Next 79.7B MoE, NVFP4, max_model_len=48576
 **Series span:** Run 002 through Run 002d (4 runs + 1 retry), 2026-04-12 to 2026-04-13
 
@@ -66,7 +66,7 @@ All four sessions accumulated 34–39K prompt tokens against the 48K window befo
 
 ### 3. Pool size drift is non-monotonic
 
-Six cold starts, same config: 8.93, 9.91, 9.72, 11.41, 12.17, 9.18 GiB. Span 3.24 GiB. The pool swung from 12.17 back to 9.18 on consecutive runs, ruling out persistent upward drift. Leading hypothesis: GPU-resident state at startup (STT service, kernel fragmentation) controls the util-budget split.
+Six cold starts, same config: 8.93, 9.91, 9.72, 11.41, 12.17, 9.18 GiB. Span 3.24 GiB. The pool swung from 12.17 back to 9.18 on consecutive runs, ruling out persistent upward drift. Leading hypothesis: GPU-resident state at startup (ambient GPU-resident processes, kernel fragmentation) controls the util-budget split.
 
 ### 4. `peak_steady` coefficient: 61.5 ± 3.0 GiB
 
