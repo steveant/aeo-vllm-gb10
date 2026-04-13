@@ -16,6 +16,13 @@ __pycache__/
 models/*
 !models/.gitkeep
 
+# Secrets / credentials (preventative)
+*.key
+*.pem
+credentials*
+secrets*
+id_rsa*
+
 # IDE
 .idea/
 .vscode/

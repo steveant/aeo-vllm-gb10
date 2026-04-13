@@ -9,11 +9,11 @@ validate:
 build: validate
 	uv run scripts/make_build.py
 
-install: build
+install: build  ## requires sudo
 	@./dist/bootstrap-vllm --version
 	cp dist/bootstrap-vllm /usr/local/bin/
 	@echo "Installed: /usr/local/bin/bootstrap-vllm"
 
-uninstall:
+uninstall:  ## requires sudo
 	rm -f /usr/local/bin/bootstrap-vllm
 	@echo "Uninstalled: /usr/local/bin/bootstrap-vllm"

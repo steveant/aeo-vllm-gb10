@@ -23,6 +23,8 @@ services:
       - ${VLLM_HOST_BIN}:/host/usr/local/bin
       - ${VLLM_HOST_HOME}:/host/home
     working_dir: /host
+    # ipc: host is required for CUDA IPC between GPU processes.
+    # shm_size: 32g provides shared memory for the vLLM worker pool.
     ipc: host
     shm_size: 32g
     # Override any image-provided entrypoint (avarok wraps /app/entrypoint.sh).
