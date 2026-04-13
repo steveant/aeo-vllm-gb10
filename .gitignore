@@ -27,6 +27,9 @@ id_rsa*
 .idea/
 .vscode/
 
+# Scratch / continuation prompts
+tmp/
+
 # Linting / Testing caches
 .ruff_cache/
 .pytest_cache/
