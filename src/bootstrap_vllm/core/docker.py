@@ -99,7 +99,7 @@ def up(force: bool = False) -> bool:
     returncode = run_stream(compose_cmd(args), env=env)
 
     if returncode == 0:
-        ok("vLLM started successfully")
+        ok("vLLM container started")
         info(f"API endpoint: http://localhost:{settings.port}")
         return True
     else:

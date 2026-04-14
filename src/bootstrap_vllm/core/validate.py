@@ -123,9 +123,8 @@ def validate_prerequisites() -> bool:
         ("Port", check_port),
     ]
 
-    all_passed = True
     for _name, check in checks:
         if not check():
-            all_passed = False
+            return False
 
-    return all_passed
+    return True
