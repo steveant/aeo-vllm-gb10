@@ -19,6 +19,8 @@ models/*
 # Secrets / credentials (preventative)
 *.key
 *.pem
+*.p12
+*.pfx
 credentials*
 secrets*
 id_rsa*

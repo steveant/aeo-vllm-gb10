@@ -33,7 +33,7 @@ def main() -> int:
     # Run ty type checker
     print("Running ty type check...")
     result = subprocess.run(
-        ["uvx", "ty", "check", str(src)],
+        ["ty", "check", str(src)],
         cwd=root,
     )
     if result.returncode != 0:
